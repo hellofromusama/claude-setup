@@ -1,0 +1,12 @@
+# Never commit secrets
+.env
+.env.*
+*.key
+*.pem
+**/credentials*.json
+.claude/settings.local.json
+
+# Junk
+node_modules/
+.DS_Store
+*.log
