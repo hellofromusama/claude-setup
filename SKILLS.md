@@ -63,6 +63,36 @@ Needs Node on PATH (the plugin uses Node lifecycle hooks). State lives in `~/.co
 Optional env: `PONYTAIL_DEFAULT_MODE` (`lite|full|ultra|off`), `PONYTAIL_SUBAGENT_MATCHER` (regex scoping
 the ruleset to specific subagent types).
 
+## Anthropic's official skills (all 17)
+
+Source of truth: https://github.com/anthropics/skills (dir `skills/`). Install or refresh all of them
+into `~/.claude/skills/`:
+
+```bash
+git clone --depth 1 https://github.com/anthropics/skills.git /tmp/anthropic-skills
+# copy each skills/<name> dir into ~/.claude/skills/<name>
+```
+
+The 17: `algorithmic-art`, `brand-guidelines`, `canvas-design`, `claude-api`, `doc-coauthoring`,
+`docx`, `frontend-design`, `internal-comms`, `mcp-builder`, `pdf`, `pptx`, `skill-creator`,
+`slack-gif-creator`, `theme-factory`, `webapp-testing`, `web-artifacts-builder`, `xlsx`.
+
+**Six are installed under renamed dirs, because community skills squat the plain names:**
+
+| Upstream | Installed as | Why |
+|----------|--------------|-----|
+| `docx` / `pdf` / `pptx` / `xlsx` | `docx-official`, `pdf-official`, `pptx-official`, `xlsx-official` | avoids clashing with community doc skills |
+| `brand-guidelines` | `brand-guidelines-anthropic` | a community `brand-guidelines` also exists |
+| `internal-comms` | `internal-comms-anthropic` | a community `internal-comms-community` also exists |
+
+> **Gotcha when renaming:** the `name:` in the SKILL.md frontmatter **must equal the directory name**.
+> Upstream ships `name: docx`, so if you drop it into `docx-official/` you must rewrite the frontmatter
+> to `name: docx-official` or the skill breaks. Copy the body verbatim, rewrite only that one line.
+
+> **They go stale.** Upstream changes these regularly and nothing auto-updates them. Refreshed
+> 2026-07-13 from upstream `9d2f1ae`; `docx` had grown 202 -> 590 lines and dropped its old
+> `ooxml.md` / `docx-js.md` files. Re-pull them every so often.
+
 ## Already-bundled / marketplace
 - **superpowers** (`using-superpowers`, `superpowers-lab`) and **code-review** (`/code-review`) —
   ship with / installed via Claude Code's skill set; no manual install needed on a fresh Claude Code.
