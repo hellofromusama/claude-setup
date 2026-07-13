@@ -39,6 +39,30 @@ cp -r /tmp/dz/frontend-design ~/.claude/skills/designer-frontend-design   # edit
 cp -r /tmp/dz/grill-me        ~/.claude/skills/designer-grill-me          # edit SKILL.md name: -> designer-grill-me
 ```
 
+## Via Claude Code plugin marketplace
+
+**ponytail** (repo `DietrichGebert/ponytail`, MIT): makes the agent write the least code it can get
+away with. Decision ladder: skip it, reuse it, use the stdlib, use an installed dep, and only then
+write the minimum viable code. Adds `/ponytail` (intensity `lite|full|ultra|off`), plus
+`/ponytail-review`, `/ponytail-audit`, `/ponytail-debt`, `/ponytail-gain`, `/ponytail-help`.
+
+Send these as **two separate prompts**; the install does not work if you combine them:
+
+```
+/plugin marketplace add DietrichGebert/ponytail
+```
+```
+/plugin install ponytail@ponytail
+```
+
+> **Do not `npm install -g ponytail`.** The npm package of that name is an unrelated project
+> ("Rethinking maintenance of multiple sites", maintainer `zhabinsky`, last published 2022).
+> The real ponytail is a Claude Code plugin only, installed via the marketplace commands above.
+
+Needs Node on PATH (the plugin uses Node lifecycle hooks). State lives in `~/.config/ponytail/config.json`.
+Optional env: `PONYTAIL_DEFAULT_MODE` (`lite|full|ultra|off`), `PONYTAIL_SUBAGENT_MATCHER` (regex scoping
+the ruleset to specific subagent types).
+
 ## Already-bundled / marketplace
 - **superpowers** (`using-superpowers`, `superpowers-lab`) and **code-review** (`/code-review`) —
   ship with / installed via Claude Code's skill set; no manual install needed on a fresh Claude Code.
